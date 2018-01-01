@@ -13,12 +13,26 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.set('view engine', 'html');
 
 const arbitrator = require('./arbitrator')
-let cache = arbitrator.getAllExchanges();
+let cache = null;
 
-app.get("/pairs", function(req, res) {
-	res.send(cache)
+app.get("/api/pairs", function(req, res) {
+  if (!cache) {
+    arbitrator.getAllExchanges()
+    .then(data => {
+      cache = data;
+      res.send(cache)
+    })
+  } else {
+    res.send(cache)
+  }
+	// res.send(arbitrator.getAllExchanges())
+  // res.send("api pairs")
 })
 
+app.get("/pairs", function(req, res) {
+  // res.send(arbitrator.getAllExchanges())
+  res.send("pairs")
+})
 app.get("*", function(req, res) {
 	res.send("here")
 })

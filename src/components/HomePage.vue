@@ -1,31 +1,37 @@
 <template>
-  <div class="home">
-  here
+  <div class="home-age">
+    Home Page
+    <template v-for="account in accounts">
+        input: input
+        account: {{account}}
+        upload withdrawal
+        upload deposit
+        upload trades
+    </template>
   </div>
 </template>
 
 <script>
-import axios from "axios"
+import Papa from "papaparse"
 export default {
-  name: 'HomePage',
+  name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      pairs: []
+      accounts: [123456, 98765]
     }
   },
-  created() {
-    this.getTradingPairs()
-  },
-  methods: {
-    getTradingPairs() {
-      axios.get("/api/pairs")
-      .then(res => {
-        console.log("res", res)
-      })
-      .catch(err => {
-        console.log("err", err)
-      })
+  methods() {
+    calculateTotalGains() {
+
+    },
+    calculateTaxOnEvent() {
+
+    },
+    calculateFeeOnEvent() {
+      // trade
+      // Base pair before diff base pair after
+      // Base pair price per share * num of shares
+      // diff of these 2
     }
   }
 }
@@ -33,18 +39,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
