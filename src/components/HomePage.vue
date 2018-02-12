@@ -13,6 +13,7 @@
 
 <script>
 import Papa from "papaparse"
+import xlsx from "xlsx"
 export default {
   name: 'HelloWorld',
   data () {
@@ -20,7 +21,7 @@ export default {
       accounts: [123456, 98765]
     }
   },
-  methods() {
+  methods: {
     calculateTotalGains() {
 
     },
