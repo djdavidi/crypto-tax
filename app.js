@@ -12,37 +12,13 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.set('view engine', 'html');
 
-const arbitrator = require('./arbitrator')
-let cache = null;
-
-app.get("/api/pairs", function(req, res) {
-  if (!cache) {
-    arbitrator.getAllExchanges()
-    .then(data => {
-      cache = data;
-      res.send(cache)
-    })
-  } else {
-    res.send(cache)
-  }
+app.get("/api/gdax-prices", function(req, res) {
+  // takes array of arrays from the csv of date times that have been 
+  // reduced and sorted and  
+  // req.
 	// res.send(arbitrator.getAllExchanges())
   // res.send("api pairs")
 })
-
-app.get("/pairs", function(req, res) {
-  // res.send(arbitrator.getAllExchanges())
-  res.send("pairs")
-})
-app.get("*", function(req, res) {
-	res.send("here")
-})
-
-// need to set up index for build
-
-// let allExchangesData = arbitrator.getAllExchanges();
-// 1. cache somehow? for every new guy that comes if
-// it hasnt been 10 sec
-// 2. Set up websockets for
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
