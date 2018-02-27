@@ -12,9 +12,11 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.set('view engine', 'html');
 
-app.get("/api/gdax-prices", function(req, res) {
+app.post("/api/gdax-prices", function(req, res) {
+  console.log("here")
   // takes array of arrays from the csv of date times that have been 
-  // reduced and sorted and  
+  // reduced and sorted and 
+
   // req.
 	// res.send(arbitrator.getAllExchanges())
   // res.send("api pairs")
