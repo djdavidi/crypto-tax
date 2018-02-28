@@ -14,6 +14,14 @@ app.set('view engine', 'html');
 
 app.post("/api/gdax-prices", function(req, res) {
   console.log("here")
+
+  // just collect all and store, looks to be legal
+  // faster and easier on their servers
+  // Store as {currency, date in Unix, USD value}
+  // Cant do altcoin to altcoin though?
+
+
+
   // takes array of arrays from the csv of date times that have been 
   // reduced and sorted and 
 

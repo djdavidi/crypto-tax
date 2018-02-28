@@ -37,8 +37,12 @@ function createAccount(name) {
 	}
 }
 
-function updateAccount() {
-
+// info = amount, currency - USD, ETH, amount of currency paid for it, time
+function updateAccount(account, coin, info) {
+	if (!account.coin) {
+		account[coin] = []
+	}
+	account[coin].push(info)
 }
 
 
