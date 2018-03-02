@@ -4,11 +4,12 @@ with each exchange being a parent node and withdrawals, deposits, trades, and Al
 
 <template>
   <div class="tree-display">
-	Hello
+	Hello {{accounts[0]}}
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex"
 export default {
   name: 'TreeDisplay',
   props: [],
@@ -30,6 +31,9 @@ export default {
       // Base pair price per share * num of shares
       // diff of these 2
     }
+  },
+  computed: {
+  	...mapState(["accounts"])
   },
   components: {}
 }

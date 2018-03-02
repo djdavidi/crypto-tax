@@ -10,7 +10,7 @@ const store = new Vuex.Store({
 // {name: "binance", addresses[]}
 // and attached withdrawal, deposit, trades
   state: {
-    accounts: []
+    accounts: ["test account"]
   },
   actions: {
     UPDATE_ACCOUNT: ({ commit }, updatedAccount, index) => {
@@ -30,9 +30,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    accounts: state => {
-      return state.accounts;
-    }
+    // accounts: state => {
+    //   return state.accounts;
+    // }
   }
 })
 export default store;
