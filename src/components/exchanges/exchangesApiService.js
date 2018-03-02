@@ -5,6 +5,9 @@
 // make that an array pairing and push into correct array
 // Should be a get technically but easier as post to handle sending all
 // the data back
+
+import axios from "axios"
+const GDAX_MAX_CANDLES = 350;
 function getGDAXData(arrayOfTimes, pair) {
 	// GET /products/<product-id>/candles
 	let current = 0;
