@@ -16,11 +16,7 @@ with each exchange being a parent node and withdrawals, deposits, trades, and Al
 		<div> Add</div>
 	</div>
 	<div class="tree-display__content">
-		Table component goes here
-		takes props of the fields depending on tab
-		object mapping and then displays
-		Give table pagination so don't have to render all 
-		those rows, let type in number into input
+		<data-table :headers="['one', 'two']"></data-table>
 	</div>
 	<div class="tree-display__summary">
 		summary thing
@@ -33,6 +29,7 @@ with each exchange being a parent node and withdrawals, deposits, trades, and Al
 // more reusable
 const tabs = ["Deposits", "Withdrawals", "Trades", "All"]
 import {mapState} from "vuex"
+import DataTable from "./DataTable"
 export default {
   name: 'TreeDisplay',
   props: [],
@@ -48,7 +45,7 @@ export default {
   computed: {
   	...mapState(["accounts"])
   },
-  components: {}
+  components: {DataTable}
 }
 </script>
 
@@ -59,7 +56,6 @@ export default {
 	margin-left: 25px;
 	margin-right: 25px;
 	display: grid;
-	/*col or row start thing*/
 	grid-template-columns: 1fr 5fr 1.5fr;
 	grid-template-rows: auto;
 	grid-template-areas: 
