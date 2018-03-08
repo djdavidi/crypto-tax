@@ -19,8 +19,8 @@ app.post("/api/gdax-prices", function(req, res) {
   // faster and easier on their servers
   // Store as {currency, date in Unix, USD value}
   // Cant do altcoin to altcoin though?
-
-
+  // can change if storing
+  // send here only string or range, and can chekc for which
 
   // takes array of arrays from the csv of date times that have been 
   // reduced and sorted and 
@@ -28,6 +28,10 @@ app.post("/api/gdax-prices", function(req, res) {
   // req.
 	// res.send(arbitrator.getAllExchanges())
   // res.send("api pairs")
+
+  // What if dont have though, like ltc only added later in year
+  // What is source of truth?
+  // round down to minutes so its contained
 })
 
 // catch 404 and forward to error handler

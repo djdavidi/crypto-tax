@@ -1,14 +1,7 @@
 <template>
-  <div class="home-age">
+  <div class="home-page">
     Home Page
-<!--     <template v-for="account in accounts">
-        input: input
-        account: {{account}}
-        upload withdrawal
-        upload deposit
-        upload trades
-    </template> -->
-    <tree-display></tree-display>
+    <!-- <tree-display></tree-display> -->
   </div>
 </template>
 
