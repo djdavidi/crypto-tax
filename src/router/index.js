@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
-import DownloadPrices from '@/components/DownloadPrices'
+import PriceDownload from '@/components/PriceDownload'
 
 Vue.use(Router)
 
@@ -12,9 +12,9 @@ export default new Router({
       name: 'HomePage',
       component: HomePage
     }, {
-      path: '/downloadPrices',
-      name: 'DownloadPrices',
-      component: DownloadPricese
+      path: '/priceDownload',
+      name: 'PriceDownload',
+      component: PriceDownloade
     }
   ]
 })
