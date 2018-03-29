@@ -14,7 +14,7 @@ export default new Router({
     }, {
       path: '/priceDownload',
       name: 'PriceDownload',
-      component: PriceDownloade
+      component: PriceDownload
     }
   ]
 })

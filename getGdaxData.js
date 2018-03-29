@@ -66,6 +66,8 @@ function getGDAXData(start, crypto, thing){
 function finishedGetData(crypto) {
 	writeStream.end()
 }
+// Jumps 2-3 minutes. Have to account for that. As well as outages
+// and things like that??
 function writeToCSV(res, crypto) {
 	console.log("RES", res.data.length)
 	res.data.forEach(timestamp => {

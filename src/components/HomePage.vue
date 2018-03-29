@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import GlobalHeader from "./common/GlobalHeader"
 import Papa from "papaparse"
 import xlsx from "xlsx"
 import TreeDisplay from "./common/TreeDisplay"
@@ -30,7 +31,7 @@ export default {
       // diff of these 2
     }
   },
-  components: {TreeDisplay}
+  components: {GlobalHeader,TreeDisplay}
 }
 </script>
 
