@@ -1,85 +1,71 @@
 // call api and write to csv
-// Need to throttle to three per second
-// const cryptos = ["BTC", "ETH", "LTC"]
-const cryptos = ["BTC"]
-// Need to be ISO Dates
+// Need to throttle to approx three per second
+const cryptos = ["BTC", "ETH", "LTC"]
+// const cryptos = ["ETH", "LTC"]
+let currentCryptoIndex = 0;
 const moment = require("moment")
 const axios = require("axios")
 const fs = require("fs")
 // Unix Values
-const writeStream = fs.createWriteStream("./eth.csv")
 const startOfLastYear = 1483228800
 const endOfLastYear = 1514764799
+
 // ISO looks like this:: 2017-12-31T23:59:59Z
-
-// 300 candles max, times one minute granularity(60)
-const maxCandles = 300
-
+let writeStream;
+// 300 candles max, times one minute granularity(60) = 18000 range per request
 const incrementVal = 18000;
 
 function main() {
-	console.log()
-	// setCSVHeader()
-	console.log("here")
-	cryptos.forEach(crypto => {
-		getGDAXData(startOfLastYear, crypto, true)
+	let currentCrypto = cryptos[currentCryptoIndex]
+	startCSVWrite(currentCrypto)
+	getGDAXData(startOfLastYear, currentCrypto)
+}
+
+function startCSVWrite(crypto) {
+	writeStream = fs.createWriteStream(`./${crypto}.csv`)
+	writeStream.on("finish", () => {
+		currentCryptoIndex++
+		main()
 	})
+	writeStream.write("Time, Price\n")
 }
 
-function setCSVHeader() {
-	writeStream.write("Time, Price, Crypto\n")
-}
-// compare using moment
-// vs UNIX, adding 21000 and doing new Date(unix).toiso
-
-// Returns array of:
-// time bucket start time
-// low lowest price during the bucket interval
-// high highest price during the bucket interval
-// open opening price (first trade) in the bucket interval
-// close closing price (last trade) in the bucket interval
-// volume volume of trading activity during the bucket interval
-function getGDAXData(start, crypto, thing){
-	if (!thing) return
+function getGDAXData(start, crypto){
 	if (start === endOfLastYear) {
-		return finishedGetData(crypto)
+		return finishedGettingData()
 	}
 	let end = start + incrementVal
-	// need to ensure that last
+
 	if (end >= endOfLastYear) {
 		end = endOfLastYear
 	}
-	console.log("HERE")
 
 	let startIso = moment.unix(start).toISOString()
-	console.log("ENF", end)
 	let endIso = moment.unix(end).toISOString()
-	console.log("STart", startIso)
-	console.log("endIso", endIso)
 	let url = "https://api.gdax.com/products/"+crypto +"-USD/candles?"+
 		"start="+startIso+"&end="+endIso+"&granularity=60"
+	console.log("startIso", startIso + crypto)
 	axios.get(url)
 	.then(res => writeToCSV(res, crypto))
-	.then(res => getGDAXData(end, crypto))
-	.catch(err => console.log("ERR: ", err))
+	.then(res => setTimeout(() => getGDAXData(end, crypto), 500))
+	// back off a bit if the api errors out
+	.catch(err => {
+		console.log("ERR::", err.statusText)
+		console.log("Start::", startIso)
+		setTimeout(() => getGDAXData(end, crypto), 500)
+	})
 }
-function finishedGetData(crypto) {
-	writeStream.end()
-}
-// Jumps 2-3 minutes. Have to account for that. As well as outages
-// and things like that??
+
 function writeToCSV(res, crypto) {
-	console.log("RES", res.data.length)
 	res.data.forEach(timestamp => {
 		let time = timestamp[0]
 		let price = ((timestamp[1] + timestamp[2]) / 2).toFixed(2)
-		writeStream.write(`${time},${price}, ${crypto}\n`)
-	});
-	// UNIX time
-	// use appendFile, stream, keep it open
-	// or write stream
-	// write iso time and 
-	return
+		writeStream.write(`${time},${price}\n`)
+	})
 }
 
-main();
+function finishedGettingData() {
+	return writeStream.end()
+}
+
+main(currentCryptoIndex);
